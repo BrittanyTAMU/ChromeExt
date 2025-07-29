@@ -1,4 +1,4 @@
-# Familiar Chrome Extensions
+# Familiar Chrome Extensions (Don't use for commercial use!! BEWARE OF BIOMETRIC LAWS AND POTENTIAL LAWSUITS/CLASS ACTIONS)
 
 This directory contains site-specific Chrome extensions for face matching on dating platforms. Each extension is domain-locked to prevent unauthorized use on other sites.
 
