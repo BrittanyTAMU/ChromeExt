@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "MatchGuard: Premium Edition",
+  "version": "1.0.0",
+  "description": "Face matching scanner for all dating platforms",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.tinder.com/*",
+    "*://*.bumble.com/*",
+    "*://*.okcupid.com/*",
+    "*://*.grindr.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.tinder.com/*",
+        "*://*.bumble.com/*",
+        "*://*.okcupid.com/*",
+        "*://*.grindr.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MatchGuard: Premium Edition"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["human.esm.js"],
+      "matches": ["https://*.com/*"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+  ]
+} 

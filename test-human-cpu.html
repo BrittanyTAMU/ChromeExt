@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human.js CPU Backend Test</title>
+</head>
+<body>
+    <h1>Human.js CPU Backend Test</h1>
+    <div id="status">Loading...</div>
+    <div id="result"></div>
+
+    <script type="module">
+        import Human from './human.esm.js';
+
+        async function testHuman() {
+            try {
+                const statusDiv = document.getElementById('status');
+                const resultDiv = document.getElementById('result');
+                
+                statusDiv.textContent = 'Initializing Human.js with CPU backend...';
+                
+                const human = new Human({
+                    modelBasePath: 'https://vladmandic.github.io/human/models',
+                    backend: 'cpu', // Force CPU backend
+                    face: { 
+                        enabled: true, 
+                        detector: { enabled: true }, 
+                        mesh: { enabled: false }, 
+                        description: { enabled: true } 
+                    },
+                    // Disable problematic features
+                    hand: { enabled: false },
+                    body: { enabled: false },
+                    gesture: { enabled: false },
+                    object: { enabled: false }
+                });
+                
+                statusDiv.textContent = 'Loading models...';
+                await human.load();
+                
+                statusDiv.textContent = 'Warming up...';
+                await human.warmup();
+                
+                statusDiv.textContent = 'Human.js initialized successfully with CPU backend!';
+                resultDiv.innerHTML = '<p style="color: green;">✅ Test passed! Human.js is working with CPU backend.</p>';
+                
+            } catch (error) {
+                document.getElementById('status').textContent = 'Error: ' + error.message;
+                document.getElementById('result').innerHTML = '<p style="color: red;">❌ Test failed: ' + error.message + '</p>';
+                console.error('Test error:', error);
+            }
+        }
+
+        testHuman();
+    </script>
+</body>
+</html> 

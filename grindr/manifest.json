@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "MatchGuard: Grindr Edition",
+  "version": "1.0.0",
+  "description": "Face matching scanner for Grindr profiles",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.grindr.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.grindr.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MatchGuard: Grindr Edition"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["human.esm.js"],
+      "matches": ["https://*.com/*"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  }
+  ]
+} 

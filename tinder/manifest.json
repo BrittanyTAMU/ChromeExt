@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Familiar for Tinder",
+  "version": "1.0.0",
+  "description": "Face matching extension for Tinder dating platform",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "host_permissions": [
+    "https://tinder.com/*",
+    "https://*.tinder.com/*",
+    "https://images-ssl.gotinder.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://tinder.com/*", "https://*.tinder.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Familiar for Tinder"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["human.esm.js"],
+      "matches": ["https://tinder.com/*", "https://*.tinder.com/*"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+} 

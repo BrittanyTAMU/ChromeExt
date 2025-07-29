@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Extension Icons</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-container { display: inline-block; margin: 10px; text-align: center; }
+        canvas { border: 1px solid #ccc; margin: 5px; }
+        button { margin: 10px; padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <h1>Extension Icon Generator</h1>
+    <p>Click the button below to generate placeholder icons for all extensions.</p>
+    <button onclick="generateAllIcons()">Generate All Icons</button>
+    <div id="icons"></div>
+
+    <script>
+        function generateIcon(size, text, color = '#667eea') {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Text
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.4}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, size/2, size/2);
+            
+            return canvas;
+        }
+        
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        function generateAllIcons() {
+            const container = document.getElementById('icons');
+            container.innerHTML = '';
+            
+            const extensions = [
+                { name: 'tinder', text: 'T', color: '#FF6B6B' },
+                { name: 'bumble', text: 'B', color: '#FFD93D' },
+                { name: 'grindr', text: 'G', color: '#6BCF7F' },
+                { name: 'premium', text: 'P', color: '#667eea' }
+            ];
+            
+            const sizes = [16, 48, 128];
+            
+            extensions.forEach(ext => {
+                const extContainer = document.createElement('div');
+                extContainer.className = 'icon-container';
+                extContainer.innerHTML = `<h3>${ext.name.toUpperCase()}</h3>`;
+                
+                sizes.forEach(size => {
+                    const canvas = generateIcon(size, ext.text, ext.color);
+                    extContainer.appendChild(canvas);
+                    
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.textContent = `Download ${size}x${size}`;
+                    downloadBtn.onclick = () => downloadCanvas(canvas, `icon${size}.png`);
+                    extContainer.appendChild(downloadBtn);
+                });
+                
+                container.appendChild(extContainer);
+            });
+        }
+    </script>
+</body>
+</html> 

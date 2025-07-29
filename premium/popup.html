@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchGuard Scanner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 350px;
+            min-height: 400px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 24px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .status-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .status-value {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+        }
+
+        .status-indicator.inactive {
+            background: #ef4444;
+        }
+
+        .status-indicator.warning {
+            background: #f59e0b;
+        }
+
+        .pairing-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pairing-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .token-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .token-input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .pair-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pair-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .pair-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .controls-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .controls-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .scan-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #4ade80;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .scan-button:hover {
+            background: #22c55e;
+        }
+
+        .scan-button.stop {
+            background: #ef4444;
+        }
+
+        .scan-button.stop:hover {
+            background: #dc2626;
+        }
+
+        .scan-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .info-text {
+            font-size: 11px;
+            opacity: 0.7;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #fca5a5;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #86efac;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">👤</div>
+            <div class="title">MatchGuard</div>
+            <div class="subtitle">Dating App Scanner</div>
+        </div>
+
+        <div id="errorMessage" class="error-message hidden"></div>
+        <div id="successMessage" class="success-message hidden"></div>
+
+        <div class="status-card">
+            <div class="status-item">
+                <span class="status-label">Connection</span>
+                <div class="status-value">
+                    <span id="connectionStatus">Checking...</span>
+                    <span id="connectionIndicator" class="status-indicator"></span>
+                </div>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Subscription</span>
+                <span id="subscriptionTier" class="status-value">Free</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Current App</span>
+                <span id="currentApp" class="status-value">None</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Scanning</span>
+                <div class="status-value">
+                    <span id="scanStatus">Stopped</span>
+                    <span id="scanIndicator" class="status-indicator inactive"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remove old pairing section -->
+        <!-- Add new image upload section -->
+        <div class="pairing-section">
+            <div class="pairing-title">Upload 2–3 Clear Photos of the Person You Want to Search</div>
+            <input id="photoInput" type="file" accept="image/jpeg,image/png" multiple style="width:100%;margin-bottom:10px;" />
+            <div id="photoFeedback" class="info-text" style="margin-bottom:10px;"></div>
+            <progress id="photoProgress" value="0" max="100" style="width:100%;display:none;"></progress>
+            <button id="savePhotosButton" class="pair-button" style="margin-top:10px;">Process & Save Face Data</button>
+        </div>
+        <div class="controls-section">
+            <div class="controls-title">Scanner Controls</div>
+            <button id="scanToggleButton" class="scan-button">Start Scanning</button>
+            <div id="scanStatusText" class="info-text"></div>
+        </div>
+    </div>
+
+    <script type="module" src="popup.js"></script>
+</body>
+</html> 
