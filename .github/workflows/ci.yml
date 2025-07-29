@@ -24,7 +24,7 @@ jobs:
           path: chrome-extension.zip
 
       - name: Upload to Chrome Web Store
-        uses: Klemensas/chrome-extension-upload-action@v5.0.0
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           extension_id: ${{ secrets.EXTENSION_ID }}
           client_id: ${{ secrets.CHROME_CLIENT_ID }}
@@ -33,7 +33,7 @@ jobs:
           zip_file: chrome-extension.zip
 
       - name: Publish Extension
-        uses: Klemensas/chrome-extension-upload-action@v5.0.0
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           extension_id: ${{ secrets.EXTENSION_ID }}
           client_id: ${{ secrets.CHROME_CLIENT_ID }}
