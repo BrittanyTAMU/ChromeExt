@@ -1,32 +1,19 @@
-# MatchGuard Chrome Extensions
+# Familiar Chrome Extensions
 
 This directory contains site-specific Chrome extensions for face matching on dating platforms. Each extension is domain-locked to prevent unauthorized use on other sites.
 
 ## Available Extensions
 
-### 1. MatchGuard: Tinder Edition
+### 1. Familiar: Tinder Edition
 - **Domain:** Only works on `*.tinder.com/*`
 - **Swipe Limit:** 100 swipes per 12 hours (free tier)
 - **Files:** `tinder/manifest.json`, `tinder/content.js`, `tinder/popup.html`, `tinder/popup.js`
 
-### 2. MatchGuard: Bumble Edition
-- **Domain:** Only works on `*.bumble.com/*`
+### 2. Familiar: OKCupid Edition
+- **Domain:** Only works on `*.OKCupid.com/*`
 - **Swipe Limit:** 25 swipes per day (free tier)
-- **Files:** `bumble/manifest.json`, `bumble/content.js`, `bumble/popup.html`, `bumble/popup.js`
+- **Files:** `OKCupid/manifest.json`, `OKCupid/content.js`, `OKCupid/popup.html`, `OKCupid/popup.js`
 
-### 3. MatchGuard: Grindr Edition
-- **Domain:** Only works on `*.grindr.com/*`
-- **Swipe Limit:** 100 swipes per day (free tier)
-- **Files:** `grindr/manifest.json`, `grindr/content.js`, `grindr/popup.html`, `grindr/popup.js`
-
-### 4. MatchGuard: All-in-One Premium Edition
-- **Domains:** Works on all supported dating sites:
-  - `*.tinder.com/*`
-  - `*.bumble.com/*`
-  - `*.okcupid.com/*`
-  - `*.grindr.com/*`
-- **Swipe Limits:** Site-specific (same as individual editions)
-- **Files:** `premium/manifest.json`, `premium/content.js`, `premium/popup.html`, `premium/popup.js`
 
 ## Security Features
 
@@ -82,11 +69,9 @@ Each extension's `manifest.json` contains strict domain restrictions:
 
 ### Individual Editions:
 - **Tinder Edition:** $X (single platform)
-- **Bumble Edition:** $X (single platform)
-- **Grindr Edition:** $X (single platform)
+- **OKCupid Edition:** $X (single platform)
 
-### Premium Edition:
-- **All-in-One:** $XX (all platforms)
+
 
 ## Technical Notes
 
@@ -103,21 +88,11 @@ extensions/
 │   ├── content.js
 │   ├── popup.html
 │   └── popup.js
-├── bumble/
+├── OKCupid/
 │   ├── manifest.json
 │   ├── content.js
 │   ├── popup.html
 │   └── popup.js
-├── grindr/
-│   ├── manifest.json
-│   ├── content.js
-│   ├── popup.html
-│   └── popup.js
-└── premium/
-    ├── manifest.json
-    ├── content.js
-    ├── popup.html
-    └── popup.js
 ```
 
 ### Customization:
