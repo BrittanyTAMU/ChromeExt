@@ -22,9 +22,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.action) {
     case 'sendEmailAlert': {
       const { alertEmail, message: msg } = message;
-      const emailService = 'service_07phax9'; // your service ID
-      const templateId = 'template_44zq4rs';  // your template ID
-      const userId = 'lk4ZaknyIfxc-aMTU';     // your user ID
+      const emailService = 'your service ID'; // your service ID  ${{ secrets.EXTENSION_ID }}
+      const templateId = 'your template ID';  // your template ID
+      const userId = 'your user ID';     // your user ID
 
       const templateParams = {
         to_email: alertEmail,
