@@ -7,30 +7,15 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
 
-    - name: 🛠️ Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
-
-    - name: 📦 Install dependencies
-      run: npm ci
-
-    - name: 🧼 Lint code
-      run: echo "No linting script defined"
-
-
-    - name: 🧪 Run tests
-      run: npm test || echo "No tests defined"
-
     - name: 📦 Zip extension
-      run: zip -r chrome-extension.zip extension/*
+      run: zip -r chrome-extension.zip .
 
     - name: ⬆️ Upload build artifact
       uses: actions/upload-artifact@v4
