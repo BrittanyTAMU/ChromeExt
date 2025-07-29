@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: 📦 Zip extension
+    - name: Zip extension
       run: zip -r chrome-extension.zip .
 
-    - name: ⬆️ Upload build artifact
+    - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
         name: chrome-extension
