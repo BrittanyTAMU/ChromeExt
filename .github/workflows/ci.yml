@@ -1,4 +1,4 @@
-name: Chrome Extension CI
+name: Chrome Extension CI/CD
 
 on:
   push:
@@ -7,18 +7,47 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Zip extension
-      run: zip -r chrome-extension.zip .
+      - name: Zip extension
+        run: zip -r chrome-extension.zip .
 
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: chrome-extension
-        path: chrome-extension.zip
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chrome-extension
+          path: chrome-extension.zip
+
+      - name: Upload to Chrome Web Store
+        uses: Klemensas/chrome-extension-upload-action@v2
+        with:
+          extension_id: ${{ secrets.EXTENSION_ID }}
+          client_id: ${{ secrets.CHROME_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          zip_file: chrome-extension.zip
+
+      - name: Publish Extension
+        uses: Klemensas/chrome-extension-upload-action@v2
+        with:
+          extension_id: ${{ secrets.EXTENSION_ID }}
+          client_id: ${{ secrets.CHROME_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true
+
+#  Reminder for Secrets:
+# Make sure you’ve added these secrets in your GitHub repo:
+
+#     EXTENSION_ID
+    
+#     CHROME_CLIENT_ID
+    
+#     CHROME_CLIENT_SECRET
+    
+#     CHROME_REFRESH_TOKEN
